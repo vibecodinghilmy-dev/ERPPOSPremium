@@ -1,0 +1,2 @@
+- [ProStream ERP Setup](prostream-setup.md) — Vite scaffolded manually (create-vite cancels in non-empty dirs); all files written by hand.
+- [ProStream Architecture](prostream-arch.md) — Feature-based modules under src/modules/; shadcn-style components in src/components/ui/; Zustand for POS+auth client state.

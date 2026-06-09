@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 100% 99%;
+    --foreground: 228 20% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 228 20% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 228 20% 11%;
+    --primary: 221 100% 39%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 214 19% 39%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 228 33% 95%;
+    --muted-foreground: 228 13% 30%;
+    --accent: 224 100% 88%;
+    --accent-foreground: 221 100% 39%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --border: 228 28% 86%;
+    --input: 228 28% 86%;
+    --ring: 221 100% 39%;
+    --radius: 0.5rem;
+
+    --surface: 240 100% 99%;
+    --surface-dim: 228 26% 87%;
+    --surface-bright: 240 100% 99%;
+    --surface-container-low: 228 67% 98%;
+    --surface-container: 228 33% 95%;
+    --surface-container-high: 228 26% 92%;
+    --surface-container-highest: 228 22% 89%;
+
+    --on-surface: 228 20% 11%;
+    --on-surface-variant: 228 11% 30%;
+    --outline: 228 11% 47%;
+    --outline-variant: 228 28% 86%;
+
+    --primary-container: 228 80% 43%;
+    --on-primary-container: 228 100% 93%;
+  }
+
+  .dark {
+    --background: 228 20% 11%;
+    --foreground: 228 100% 96%;
+    --card: 228 22% 15%;
+    --card-foreground: 228 100% 96%;
+    --popover: 228 22% 15%;
+    --popover-foreground: 228 100% 96%;
+    --primary: 228 100% 71%;
+    --primary-foreground: 221 100% 30%;
+    --secondary: 214 29% 69%;
+    --secondary-foreground: 214 29% 12%;
+    --muted: 228 22% 19%;
+    --muted-foreground: 228 13% 65%;
+    --accent: 228 33% 25%;
+    --accent-foreground: 228 100% 71%;
+    --destructive: 0 63% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --border: 228 22% 22%;
+    --input: 228 22% 22%;
+    --ring: 228 100% 71%;
+
+    --surface: 228 22% 15%;
+    --surface-dim: 228 20% 11%;
+    --surface-bright: 228 22% 19%;
+    --surface-container-low: 228 20% 13%;
+    --surface-container: 228 22% 16%;
+    --surface-container-high: 228 22% 19%;
+    --surface-container-highest: 228 20% 22%;
+
+    --on-surface: 228 100% 96%;
+    --on-surface-variant: 228 28% 82%;
+    --outline: 228 13% 57%;
+    --outline-variant: 228 20% 28%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground;
+  }
+}
+
+@layer utilities {
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ProStream ERP - Multi-Outlet Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#003ea8",
+                        "surface-tint": "#0053db",
+                        "secondary-container": "#d0e1fb",
+                        "on-background": "#191b23",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed": "#360f00",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-surface-variant": "#434655",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#faf8ff",
+                        "outline-variant": "#c3c6d7",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#bc4800",
+                        "inverse-primary": "#b4c5ff",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "background": "#faf8ff",
+                        "surface-container-high": "#e7e7f3",
+                        "on-primary-container": "#eeefff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#0b1c30",
+                        "inverse-on-surface": "#f0f0fb",
+                        "on-secondary-container": "#54647a",
+                        "outline": "#737686",
+                        "surface-container-low": "#f3f3fe",
+                        "surface": "#faf8ff",
+                        "inverse-surface": "#2e3039",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#d3e4fe",
+                        "tertiary": "#943700",
+                        "secondary": "#505f76",
+                        "surface-variant": "#e1e2ed",
+                        "surface-dim": "#d9d9e5",
+                        "surface-container-highest": "#e1e2ed",
+                        "primary-container": "#2563eb",
+                        "on-surface": "#191b23",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-primary-fixed": "#00174b",
+                        "surface-container": "#ededf9",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#ffede6",
+                        "primary": "#004ac6",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "primary-fixed": "#dbe1ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "container-max": "1440px",
+                        "xs": "4px",
+                        "2xl": "48px",
+                        "xl": "32px",
+                        "unit": "4px",
+                        "gutter": "20px",
+                        "sm": "8px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "mono-md": ["JetBrains Mono"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "title-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "mono-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #F8FAFC;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .card-shadow {
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="text-on-background font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center h-16 px-lg sticky top-0 z-40 bg-surface-bright dark:bg-surface-dim border-b border-outline-variant dark:border-outline shadow-sm">
+<div class="flex items-center gap-md">
+<span class="text-headline-md font-headline-md font-black text-primary dark:text-primary-fixed">ERP Lite F&amp;B</span>
+<div class="hidden md:flex items-center bg-surface-container-low px-md py-xs rounded-full border border-outline-variant ml-md">
+<span class="material-symbols-outlined text-on-surface-variant mr-xs">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md w-64" placeholder="Search outlets..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex gap-sm">
+<button class="p-sm hover:bg-surface-container-high rounded-full transition-all duration-150">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<button class="p-sm hover:bg-surface-container-high rounded-full transition-all duration-150">
+<span class="material-symbols-outlined text-on-surface-variant">calendar_today</span>
+</button>
+</div>
+<button class="bg-primary hover:opacity-90 text-on-primary px-lg py-sm rounded-lg font-label-md text-label-md transition-all duration-150 flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                New Sale
+            </button>
+</div>
+</header>
+<div class="flex">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex flex-col p-md bg-surface dark:bg-inverse-surface border-r border-outline-variant dark:border-outline z-30">
+<div class="mb-lg px-sm">
+<div class="flex items-center gap-sm">
+<img alt="Alex Morgan" class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A professional headshot of a middle-aged male floor manager with a confident and friendly expression, wearing a crisp white dress shirt. The background is a softly blurred modern office environment with warm, natural lighting. The overall visual style is clean, corporate, and high-fidelity, matching a professional ERP management dashboard aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO7XMszSKzV8ESA-ILA7kY2CK1z5vRH7eLIAmsYbotkcHyCvMhmvDjfEXdkQN4Q9jyhDw_X8i-PwHPpeRN7dN4a7Jgc-e7zt9fJo40vjwGtU37u650taMNmUF6KHWRljGBj6I9w59E6RTWCaTjxytw1oWRDN5y1oNqEpZlHvdIQozsFmJ7OtRrjV0rqOLfX3leQb3J0zH5dT_KMbgFJQmMT_ADq7Frn6Wxex3sv9cC-2l9bKDaVDVr0iqErcMZ90NLFW-W_B3rMx4"/>
+<div>
+<p class="text-title-lg font-bold text-on-surface">Alex Morgan</p>
+<p class="text-label-md text-on-surface-variant">Floor Manager</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-xs overflow-y-auto">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-secondary-container transition-colors duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-on-secondary-fixed transition-colors duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">storefront</span>
+<span class="text-label-md font-label-md">Outlets</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-secondary-container transition-colors duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="text-label-md font-label-md">POS</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-secondary-container transition-colors duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-label-md font-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-secondary-container transition-colors duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">inventory</span>
+<span class="text-label-md font-label-md">Products</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-secondary-container transition-colors duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="text-label-md font-label-md">Recipe Builder</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-secondary-container transition-colors duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="text-label-md font-label-md">Purchases</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-secondary-container transition-colors duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="text-label-md font-label-md">Reports</span>
+</a>
+</nav>
+<div class="pt-md mt-auto border-t border-outline-variant">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 p-lg max-w-[1440px]">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-xl gap-md">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-background mb-xs">Outlet Management</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Monitor and manage all restaurant branches from a single unified control center.</p>
+</div>
+<div class="flex items-center gap-md">
+<button class="px-lg py-[10px] bg-surface-container-lowest border border-outline hover:bg-surface-container-high text-on-surface rounded-lg font-label-md text-label-md transition-all flex items-center gap-xs">
+<span class="material-symbols-outlined text-[20px]">swap_horiz</span>
+                        Transfer Stock
+                    </button>
+<button class="px-lg py-[10px] bg-primary hover:opacity-90 text-on-primary rounded-lg font-label-md text-label-md transition-all flex items-center gap-xs">
+<span class="material-symbols-outlined text-[20px]">add_business</span>
+                        Add New Outlet
+                    </button>
+</div>
+</div>
+<!-- Global Stats (High-level summary) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-lg mb-xl">
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant card-shadow">
+<p class="text-label-md font-label-md text-on-surface-variant mb-sm uppercase tracking-wider">Total Outlets</p>
+<div class="flex items-end justify-between">
+<span class="text-headline-md font-headline-md">12</span>
+<span class="text-primary text-label-md bg-secondary-container px-sm py-xs rounded">Active</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant card-shadow">
+<p class="text-label-md font-label-md text-on-surface-variant mb-sm uppercase tracking-wider">Aggregate Revenue (Today)</p>
+<div class="flex items-end justify-between">
+<span class="text-headline-md font-headline-md">Rp 142.5M</span>
+<span class="text-green-600 text-label-md font-bold">+8.4%</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant card-shadow">
+<p class="text-label-md font-label-md text-on-surface-variant mb-sm uppercase tracking-wider">Low Stock Alerts</p>
+<div class="flex items-end justify-between">
+<span class="text-headline-md font-headline-md">3</span>
+<span class="material-symbols-outlined text-error">warning</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant card-shadow">
+<p class="text-label-md font-label-md text-on-surface-variant mb-sm uppercase tracking-wider">Active Staff</p>
+<div class="flex items-end justify-between">
+<span class="text-headline-md font-headline-md">84</span>
+<span class="text-on-surface-variant text-label-md">Across all units</span>
+</div>
+</div>
+</div>
+<!-- Outlets Bento Grid / Card List -->
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-lg">
+<!-- Outlet Card: Jakarta Selatan -->
+<div class="group bg-surface-container-lowest rounded-xl border border-outline-variant card-shadow overflow-hidden transition-transform hover:-translate-y-1">
+<div class="h-32 bg-slate-200 relative">
+<img alt="Jakarta Outlet" class="w-full h-full object-cover" data-alt="A sophisticated upscale restaurant interior in Jakarta with warm ambient lighting, elegant furniture, and a polished marble bar. The visual tone is high-end and professional, characterized by clean lines and a modern architectural feel. Soft evening light streams through large windows, creating a serene and efficient atmosphere suitable for an ERP dashboard background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOsx2gRs-NOXiwWS2195nQEUC5RsqugfSBakwj_wUUHh3hNuSJlluK8zG28YVZIJT52rj72LA7djF4WPxaTr7SS24UCs7CVEKcKvi2KRy894QLKHnDflghZIens7tS0cMN1gvINjGTfuLaL3QQAt4Qu9vcG8VytFvQ3UxSqfuU8x8gxdPf0YpX139I-rnhl73gmdLb1E4f_IxwajJnqAULSNE2Wu4zEYHUeNEhDkYxISGG9uzctko2BFaJ1ZyhBJrGDd-F8QsdqaQ"/>
+<div class="absolute top-md right-md">
+<span class="px-sm py-xs bg-green-100 text-green-800 text-label-md font-bold rounded-full border border-green-200 flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                                Online
+                            </span>
+</div>
+</div>
+<div class="p-lg">
+<div class="flex justify-between items-start mb-md">
+<div>
+<h3 class="text-title-lg font-bold text-on-surface">ProStream Jakarta Selatan</h3>
+<p class="text-body-md text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                    Senopati, Jakarta
+                                </p>
+</div>
+<button class="p-sm hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="space-y-md">
+<div class="flex justify-between items-center py-sm border-b border-outline-variant">
+<span class="text-body-md text-on-surface-variant">Daily Revenue</span>
+<span class="text-body-lg font-bold text-on-surface">Rp 48,200,000</span>
+</div>
+<div class="flex justify-between items-center py-sm border-b border-outline-variant">
+<span class="text-body-md text-on-surface-variant">Current Stock Value</span>
+<span class="text-body-lg font-bold text-on-surface">Rp 124,500,000</span>
+</div>
+<div class="flex justify-between items-center py-sm">
+<span class="text-body-md text-on-surface-variant">Pending Transfers</span>
+<span class="px-sm py-xs bg-secondary-container text-on-secondary-container rounded-full text-label-md">2 New</span>
+</div>
+</div>
+<div class="mt-lg grid grid-cols-2 gap-sm">
+<button class="w-full py-sm bg-surface-container border border-outline-variant hover:bg-surface-container-high rounded-lg text-label-md font-bold transition-all">View Details</button>
+<button class="w-full py-sm bg-primary text-on-primary hover:opacity-90 rounded-lg text-label-md font-bold transition-all">Manage POS</button>
+</div>
+</div>
+</div>
+<!-- Outlet Card: Bandung -->
+<div class="group bg-surface-container-lowest rounded-xl border border-outline-variant card-shadow overflow-hidden transition-transform hover:-translate-y-1">
+<div class="h-32 bg-slate-200 relative">
+<img alt="Bandung Outlet" class="w-full h-full object-cover" data-alt="A trendy and vibrant cafe in Bandung with a minimalist industrial design, featuring hanging plants, wooden tables, and large windows. The lighting is bright and natural, suggesting a high-activity daytime environment. The image uses a clean, contemporary aesthetic with a cool color palette of whites, grays, and soft blues, aligning with the ERP brand system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB610I37t86MX5AdNBVJqT8e1GGZf-RvEFtdJcmQ6nTf26SzwFTcVmQYVGHCXfBnhLsTtLP0fiBtsbDyydCBHHpB3Q_RQvHrLQoRXo_jPfBQbJreM5RQRY082LodDRUFnJ-3FILFWy275cw1nPsUrcQVb-tW_8xpM3xiquPq8gqAQhuS0iWr39Fg8g-YvMHPsVwhQkdibD9UypweoI0LEp446FdeE_-zDQsi2vwq-PpRu6WFofoJwb48118gpioMBJ46y3iPPwwwbc"/>
+<div class="absolute top-md right-md">
+<span class="px-sm py-xs bg-green-100 text-green-800 text-label-md font-bold rounded-full border border-green-200 flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                                Online
+                            </span>
+</div>
+</div>
+<div class="p-lg">
+<div class="flex justify-between items-start mb-md">
+<div>
+<h3 class="text-title-lg font-bold text-on-surface">ProStream Bandung Dago</h3>
+<p class="text-body-md text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                    Dago, Bandung
+                                </p>
+</div>
+<button class="p-sm hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="space-y-md">
+<div class="flex justify-between items-center py-sm border-b border-outline-variant">
+<span class="text-body-md text-on-surface-variant">Daily Revenue</span>
+<span class="text-body-lg font-bold text-on-surface">Rp 32,150,000</span>
+</div>
+<div class="flex justify-between items-center py-sm border-b border-outline-variant">
+<span class="text-body-md text-on-surface-variant">Current Stock Value</span>
+<span class="text-body-lg font-bold text-error">Rp 18,200,000</span>
+</div>
+<div class="flex justify-between items-center py-sm">
+<span class="text-body-md text-on-surface-variant">Low Stock Items</span>
+<span class="px-sm py-xs bg-error-container text-on-error-container rounded-full text-label-md">12 Alerts</span>
+</div>
+</div>
+<div class="mt-lg grid grid-cols-2 gap-sm">
+<button class="w-full py-sm bg-surface-container border border-outline-variant hover:bg-surface-container-high rounded-lg text-label-md font-bold transition-all">View Details</button>
+<button class="w-full py-sm bg-primary text-on-primary hover:opacity-90 rounded-lg text-label-md font-bold transition-all">Manage POS</button>
+</div>
+</div>
+</div>
+<!-- Outlet Card: Cimahi -->
+<div class="group bg-surface-container-lowest rounded-xl border border-outline-variant card-shadow overflow-hidden transition-transform hover:-translate-y-1">
+<div class="h-32 bg-slate-200 relative grayscale opacity-75">
+<img alt="Cimahi Outlet" class="w-full h-full object-cover" data-alt="A modern restaurant kitchen after hours, featuring stainless steel surfaces, professional equipment, and a very clean, organized layout. The lighting is dimmed, creating a quiet and structured atmosphere. The color palette is dominated by metallic silver and cool grays, symbolizing a temporary offline or maintenance status within a professional ERP application context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjK1jro94VOZIDkahrtYAUbggBgiblANhB4gTmDt6GRT4OPGSu_MpmTQC8oIwqm7UUbzwlNO3QmRCDq7dy1_dUyaCkPonGvdGfGCb1g7F9cp9IyPx6eqkK7jVSWTbkK66tPFZtKOBwilBtyftzbHVnj9UVmC9FCor-L4EEvHgWrFLjARN-KaTihPMcUu9Ap2pWBoaJQHnh-2TxOdio0vNdaZT73motf-tiKOjFmpMB5kUMfZD_4GYN_wCcEsJCg7vcCNI9K5rzGc0"/>
+<div class="absolute top-md right-md">
+<span class="px-sm py-xs bg-surface-variant text-on-surface-variant text-label-md font-bold rounded-full border border-outline-variant flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+                                Offline
+                            </span>
+</div>
+</div>
+<div class="p-lg">
+<div class="flex justify-between items-start mb-md">
+<div>
+<h3 class="text-title-lg font-bold text-on-surface">ProStream Cimahi Hub</h3>
+<p class="text-body-md text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                    Cimahi Tengah
+                                </p>
+</div>
+<button class="p-sm hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="space-y-md">
+<div class="flex justify-between items-center py-sm border-b border-outline-variant">
+<span class="text-body-md text-on-surface-variant">Daily Revenue</span>
+<span class="text-body-lg font-bold text-on-surface">Rp 0</span>
+</div>
+<div class="flex justify-between items-center py-sm border-b border-outline-variant">
+<span class="text-body-md text-on-surface-variant">Current Stock Value</span>
+<span class="text-body-lg font-bold text-on-surface">Rp 92,800,000</span>
+</div>
+<div class="flex justify-between items-center py-sm">
+<span class="text-body-md text-on-surface-variant">Scheduled Restart</span>
+<span class="text-label-md font-bold">Today, 22:00</span>
+</div>
+</div>
+<div class="mt-lg grid grid-cols-2 gap-sm">
+<button class="w-full py-sm bg-surface-container border border-outline-variant hover:bg-surface-container-high rounded-lg text-label-md font-bold transition-all">View Details</button>
+<button class="w-full py-sm bg-surface-variant text-on-surface-variant cursor-not-allowed rounded-lg text-label-md font-bold transition-all" disabled="">Manage POS</button>
+</div>
+</div>
+</div>
+<!-- Stock Transfer Quick Action Card -->
+<div class="lg:col-span-2 xl:col-span-3 bg-secondary-container/30 border-2 border-dashed border-primary/30 p-xl rounded-xl flex flex-col md:flex-row items-center justify-between gap-xl">
+<div class="flex items-center gap-lg">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[32px]">local_shipping</span>
+</div>
+<div>
+<h4 class="text-title-lg font-bold text-on-background">Inter-Outlet Stock Transfer</h4>
+<p class="text-body-md text-on-surface-variant">Optimize inventory levels by shifting stock from high-surplus branches to low-stock units.</p>
+</div>
+</div>
+<button class="whitespace-nowrap px-xl py-md bg-primary text-on-primary rounded-lg font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform flex items-center gap-sm">
+<span class="material-symbols-outlined">move_up</span>
+                        Initiate Transfer Now
+                    </button>
+</div>
+</div>
+<!-- Table View for Detailed Metrics (Desktop Only) -->
+<div class="mt-2xl">
+<div class="flex items-center justify-between mb-lg">
+<h2 class="text-headline-md font-bold">Historical Performance Table</h2>
+<div class="flex items-center gap-sm">
+<button class="px-md py-sm bg-white border border-outline-variant rounded-lg text-label-md font-bold hover:bg-gray-50 flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                            Filter
+                        </button>
+<button class="px-md py-sm bg-white border border-outline-variant rounded-lg text-label-md font-bold hover:bg-gray-50 flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                            Export CSV
+                        </button>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden card-shadow">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container text-left border-b border-outline-variant">
+<th class="px-lg py-md text-label-md font-bold text-on-surface-variant uppercase tracking-wider">Outlet Name</th>
+<th class="px-lg py-md text-label-md font-bold text-on-surface-variant uppercase tracking-wider">Monthly Target</th>
+<th class="px-lg py-md text-label-md font-bold text-on-surface-variant uppercase tracking-wider">Achievement</th>
+<th class="px-lg py-md text-label-md font-bold text-on-surface-variant uppercase tracking-wider">Orders Today</th>
+<th class="px-lg py-md text-label-md font-bold text-on-surface-variant uppercase tracking-wider">Staff Count</th>
+<th class="px-lg py-md text-label-md font-bold text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md font-bold">Jakarta Selatan</td>
+<td class="px-lg py-md">Rp 1.2B</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-24 bg-surface-container rounded-full h-2">
+<div class="bg-primary h-full rounded-full" style="width: 78%"></div>
+</div>
+<span class="text-body-md font-bold">78%</span>
+</div>
+</td>
+<td class="px-lg py-md">412</td>
+<td class="px-lg py-md">24</td>
+<td class="px-lg py-md text-right">
+<button class="text-primary font-bold hover:underline">View Analytics</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md font-bold">Bandung Dago</td>
+<td class="px-lg py-md">Rp 850M</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-24 bg-surface-container rounded-full h-2">
+<div class="bg-primary h-full rounded-full" style="width: 62%"></div>
+</div>
+<span class="text-body-md font-bold">62%</span>
+</div>
+</td>
+<td class="px-lg py-md">289</td>
+<td class="px-lg py-md">18</td>
+<td class="px-lg py-md text-right">
+<button class="text-primary font-bold hover:underline">View Analytics</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md font-bold">Cimahi Hub</td>
+<td class="px-lg py-md">Rp 400M</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-24 bg-surface-container rounded-full h-2">
+<div class="bg-primary h-full rounded-full" style="width: 15%"></div>
+</div>
+<span class="text-body-md font-bold">15%</span>
+</div>
+</td>
+<td class="px-lg py-md">0</td>
+<td class="px-lg py-md">8</td>
+<td class="px-lg py-md text-right">
+<button class="text-primary font-bold hover:underline">View Analytics</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+</div>
+<!-- Floating Action Button (Only for main dashboards) -->
+<button class="fixed bottom-lg right-lg w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95 group z-50">
+<span class="material-symbols-outlined text-[32px]">support_agent</span>
+<div class="absolute right-full mr-md py-xs px-md bg-inverse-surface text-on-primary-container rounded text-label-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            Contact Support
+        </div>
+</button>
+<script>
+        // Simple micro-interaction for cards
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.querySelector('img').style.transform = 'scale(1.05)';
+                card.querySelector('img').style.transition = 'transform 0.5s ease';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.querySelector('img').style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

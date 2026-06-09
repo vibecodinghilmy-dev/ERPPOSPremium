@@ -1,0 +1,861 @@
+# BUILD PROSTREAM ERP F&B V1.0 (PRODUCTION READY)
+
+## Context
+
+I already have the initial UI completed:
+
+* Dashboard
+* POS
+* Inventory
+* Products
+* Recipe Builder
+* Purchases
+* Reports
+* Settings
+
+The current implementation is mostly UI and mock data.
+
+I do NOT want another UI prototype.
+
+I want a REAL production-ready ERP + POS platform for Food & Beverage businesses.
+
+The application must be built with real database architecture, business logic, permissions, stock engine, HPP engine, audit logs, and scalable architecture.
+
+---
+
+# Core Philosophy
+
+This is NOT a cashier app.
+
+This is:
+
+POS + ERP + Inventory + Recipe + Purchasing + HPP + Profit Analytics
+
+The primary goal is:
+
+Restaurant owners should know:
+
+* Real Revenue
+* Real HPP
+* Real Gross Profit
+* Real Net Profit
+* Real Inventory Position
+
+Without using Excel.
+
+---
+
+# Technology Stack
+
+Frontend
+
+* React
+* TypeScript
+* Vite
+* Tailwind
+* shadcn/ui
+* TanStack Query
+* Zustand
+
+Backend
+
+* Supabase
+
+Database
+
+* PostgreSQL
+
+Authentication
+
+* Supabase Auth
+
+Deployment
+
+* Vercel
+
+Future Ready
+
+* PWA
+* Capacitor
+* Android
+* iOS
+
+---
+
+# Architecture Requirements
+
+Implement:
+
+Feature-based architecture
+
+Example:
+
+src/
+
+modules/
+
+dashboard/
+
+pos/
+
+inventory/
+
+products/
+
+recipes/
+
+purchases/
+
+suppliers/
+
+customers/
+
+reports/
+
+settings/
+
+auth/
+
+shared/
+
+---
+
+# Database Design
+
+Create full PostgreSQL schema.
+
+Required Tables:
+
+users
+
+roles
+
+permissions
+
+outlets
+
+user_outlets
+
+suppliers
+
+customers
+
+units
+
+unit_conversions
+
+ingredient_categories
+
+ingredients
+
+ingredient_stock
+
+inventory_movements
+
+stock_opname
+
+stock_adjustments
+
+waste_logs
+
+product_categories
+
+products
+
+product_variants
+
+recipe_headers
+
+recipe_items
+
+semi_finished_products
+
+purchases
+
+purchase_items
+
+goods_receipts
+
+sales
+
+sale_items
+
+payment_methods
+
+payments
+
+discounts
+
+taxes
+
+hpp_logs
+
+profit_logs
+
+operational_costs
+
+audit_logs
+
+notifications
+
+settings
+
+---
+
+# Inventory Engine
+
+Build real inventory logic.
+
+When sale occurs:
+
+Example:
+
+Beng Beng Ice x2
+
+Recipe:
+
+Milk 200 ml
+
+Ice 100 gr
+
+Cup 1 pcs
+
+Automatically:
+
+Reduce stock.
+
+Create inventory movement records.
+
+Create HPP log.
+
+Create profit log.
+
+Update dashboard metrics.
+
+Everything must happen automatically.
+
+No manual adjustment.
+
+---
+
+# Unit Conversion Engine
+
+Support:
+
+Gram
+
+Kg
+
+Ml
+
+Liter
+
+Pcs
+
+Bottle
+
+Pack
+
+Cup
+
+Sachet
+
+Admin can create new units.
+
+Examples:
+
+1 Kg = 1000 Gram
+
+1 Liter = 1000 Ml
+
+Inventory must convert automatically.
+
+---
+
+# Recipe Builder
+
+Current UI is incomplete.
+
+Implement:
+
+Recipe Header
+
+Recipe Items
+
+Ingredient Selector
+
+Unit Selector
+
+Drag & Drop
+
+Live HPP Calculation
+
+Margin Calculation
+
+Food Cost %
+
+Version History
+
+Recipe Cloning
+
+Recipe Approval Workflow
+
+---
+
+# Semi Finished Product Engine
+
+Implement:
+
+Raw Material
+
+↓
+
+Semi Finished Product
+
+↓
+
+Final Product
+
+Example:
+
+Milk
+
+Sugar
+
+Cream
+
+↓
+
+Milk Base
+
+↓
+
+Caramel Latte
+
+Changes in Milk Base must automatically affect HPP.
+
+---
+
+# HPP Engine
+
+Every product must calculate:
+
+Ingredient Cost
+
+Packaging Cost
+
+Operational Allocation
+
+Total HPP
+
+Formula:
+
+Ingredient Cost
++
+Packaging Cost
++
+Allocated Overhead
+==================
+
+HPP
+
+---
+
+# Packaging Cost Module
+
+Add dedicated module.
+
+Examples:
+
+Cup
+
+Lid
+
+Straw
+
+Sticker
+
+Paper Bag
+
+Tissue
+
+Packaging must automatically become part of recipe cost.
+
+---
+
+# POS Module
+
+Current UI is missing critical features.
+
+Implement:
+
+Cash Sale
+
+QRIS
+
+Debit Card
+
+Credit Card
+
+Split Payment
+
+Refund
+
+Void Transaction
+
+Discount
+
+Promo
+
+Service Charge
+
+Tax
+
+Receipt Printing
+
+Receipt Preview
+
+Reprint Receipt
+
+Customer Assignment
+
+Order Notes
+
+Order Types:
+
+Dine In
+
+Take Away
+
+Delivery
+
+---
+
+# Stock Opname Module
+
+Implement complete workflow.
+
+System Stock
+
+Physical Stock
+
+Difference
+
+Approval
+
+Adjustment Creation
+
+History
+
+Export
+
+---
+
+# Stock Movement Module
+
+Create inventory ledger.
+
+Every movement must be recorded.
+
+Purchase
+
+Sale
+
+Waste
+
+Adjustment
+
+Transfer
+
+Production
+
+Consumption
+
+Nothing can change stock without movement logs.
+
+---
+
+# Waste Management
+
+Track losses.
+
+Examples:
+
+Expired Milk
+
+Broken Cup
+
+Spilled Syrup
+
+Waste Cost must affect profit.
+
+---
+
+# Purchasing Module
+
+Implement:
+
+Purchase Request
+
+Purchase Order
+
+Goods Receipt
+
+Supplier Invoice
+
+Payment Tracking
+
+Supplier Performance
+
+Purchase Analytics
+
+---
+
+# Supplier Module
+
+Create dedicated management.
+
+Fields:
+
+Name
+
+Phone
+
+WhatsApp
+
+Email
+
+Address
+
+NPWP
+
+Notes
+
+Purchase History
+
+Performance Score
+
+---
+
+# Customer Module
+
+Implement CRM.
+
+Fields:
+
+Name
+
+Phone
+
+Email
+
+Birthday
+
+Points
+
+Membership Tier
+
+Lifetime Spending
+
+Visit Count
+
+Last Transaction
+
+---
+
+# Loyalty Program
+
+Points
+
+Rewards
+
+Vouchers
+
+Membership Levels
+
+Silver
+
+Gold
+
+Platinum
+
+---
+
+# Multi Outlet
+
+Must support:
+
+Single Outlet
+
+Multi Outlet
+
+Franchise Ready
+
+Features:
+
+Outlet Inventory
+
+Outlet Sales
+
+Outlet Profit
+
+Outlet Transfer
+
+Outlet Users
+
+Outlet Dashboard
+
+---
+
+# Operational Cost Module
+
+Track:
+
+Rent
+
+Electricity
+
+Water
+
+Internet
+
+Salary
+
+Marketing
+
+Maintenance
+
+Calculate:
+
+Net Profit
+
+not only Gross Profit.
+
+---
+
+# Reporting Module
+
+Build real analytics.
+
+Sales Reports
+
+Profit Reports
+
+Inventory Reports
+
+Supplier Reports
+
+Customer Reports
+
+Outlet Reports
+
+Recipe Cost Reports
+
+HPP Reports
+
+Food Cost Reports
+
+Waste Reports
+
+Forecast Reports
+
+---
+
+# Dashboard Improvements
+
+Current dashboard is too basic.
+
+Add:
+
+Revenue Today
+
+Profit Today
+
+Net Profit
+
+Food Cost %
+
+Top Products
+
+Top Categories
+
+Low Stock Alerts
+
+Waste Cost
+
+Inventory Value
+
+Outlet Comparison
+
+Sales Heatmap
+
+Revenue Trend
+
+Profit Trend
+
+Stock Forecast
+
+Smart Notifications
+
+---
+
+# Smart Alerts
+
+Examples:
+
+Milk stock will run out in 2 days.
+
+Coffee beans increased 15%.
+
+Profit margin dropped below target.
+
+Inventory discrepancy detected.
+
+---
+
+# Audit Log System
+
+Every critical action must be logged.
+
+Examples:
+
+User A changed milk price.
+
+User B edited recipe.
+
+User C voided transaction.
+
+Store:
+
+User
+
+Timestamp
+
+Before Value
+
+After Value
+
+Reason
+
+IP Address
+
+---
+
+# Approval Workflow
+
+Manager
+
+↓
+
+Owner Approval
+
+Required for:
+
+Recipe Changes
+
+Price Changes
+
+Stock Adjustments
+
+Waste Logs
+
+Purchase Orders
+
+---
+
+# Roles & Permissions
+
+Owner
+
+Manager
+
+Cashier
+
+Warehouse
+
+Accounting
+
+Admin
+
+Permission-based access control.
+
+Do NOT hardcode roles.
+
+Use dynamic permission system.
+
+---
+
+# Notifications
+
+In-app notifications
+
+Email notifications
+
+WhatsApp-ready architecture
+
+---
+
+# Exports
+
+PDF
+
+Excel
+
+CSV
+
+---
+
+# Production Requirements
+
+No mock data.
+
+No fake calculations.
+
+No placeholder APIs.
+
+No localStorage as primary database.
+
+Use Supabase.
+
+Implement Row Level Security.
+
+Implement proper relational database design.
+
+Implement loading states.
+
+Implement error handling.
+
+Implement empty states.
+
+Implement responsive layout.
+
+Implement dark mode.
+
+Implement accessibility.
+
+Implement PWA support.
+
+Implement offline POS queue.
+
+Implement optimistic updates.
+
+---
+
+# Final Goal
+
+Build a production-grade Food & Beverage ERP system that can compete with:
+
+* Moka
+* Pawoon
+* Olsera
+* ESB Core
+* Majoo
+
+But with a stronger focus on:
+
+* HPP Automation
+* Recipe Costing
+* Inventory Accuracy
+* Profit Visibility
+
+The application should be deployable and usable by a real restaurant without requiring spreadsheets.

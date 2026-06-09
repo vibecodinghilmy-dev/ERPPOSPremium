@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ERP Lite F&amp;B - POS Terminal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "on-primary-container": "#eeefff",
+                        "inverse-on-surface": "#f0f0fb",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "on-background": "#191b23",
+                        "surface-container-highest": "#e1e2ed",
+                        "on-primary-fixed": "#00174b",
+                        "outline-variant": "#c3c6d7",
+                        "surface-container-low": "#f3f3fe",
+                        "primary-container": "#2563eb",
+                        "tertiary": "#943700",
+                        "on-secondary-container": "#54647a",
+                        "on-primary": "#ffffff",
+                        "primary": "#004ac6",
+                        "inverse-surface": "#2e3039",
+                        "surface-variant": "#e1e2ed",
+                        "surface-dim": "#d9d9e5",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "surface-bright": "#faf8ff",
+                        "secondary-container": "#d0e1fb",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "outline": "#737686",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "tertiary-fixed": "#ffdbcd",
+                        "secondary": "#505f76",
+                        "surface": "#faf8ff",
+                        "primary-fixed": "#dbe1ff",
+                        "tertiary-container": "#bc4800",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed": "#360f00",
+                        "on-surface": "#191b23",
+                        "surface-tint": "#0053db",
+                        "on-secondary-fixed": "#0b1c30",
+                        "inverse-primary": "#b4c5ff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-tertiary-container": "#ffede6",
+                        "on-surface-variant": "#434655",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#ededf9",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "surface-container-high": "#e7e7f3",
+                        "background": "#faf8ff",
+                        "secondary-fixed": "#d3e4fe"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "2xl": "48px",
+                        "lg": "24px",
+                        "gutter": "20px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "mono-md": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "mono-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface border-r border-outline-variant flex flex-col p-md z-50">
+<div class="mb-xl">
+<span class="text-title-lg font-title-lg font-bold text-primary">ERP Lite F&amp;B</span>
+</div>
+<div class="flex items-center gap-md mb-xl p-sm bg-surface-container rounded-lg">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+<img alt="Alex Morgan" class="w-full h-full object-cover" data-alt="A professional headshot of a floor manager wearing a clean, modern hospitality uniform. The lighting is crisp and bright, characteristic of a high-end restaurant environment. The background is softly blurred, showing a contemporary dining area with sleek furniture and minimalist decor in shades of soft blue and slate grey." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDB-vXLPJ3BIXcdf0GMpebeTcUtcaFPQIZDOeHcEYgAfo9TVxlwNkmlR0JM_EM2OWHE3bvItqwkpgRNxC3Y4o9Vz93uA-hpo96fJoflGQfAnn1aoRqQ1TnUZDw_DHqM55GenfI8zu1W5DwcTemMmRqo9iOh5-_o95h985hfpaOlDvRtUHDS-cjIn1QnBQmxNtmF3n0aJsnNY8nxuRVENGuiI6f0pHAF9RKOu8IylbzYeKtZ7nLqo3XZk2ZyRZ6MaOP6jTl0RDvQ6k"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Alex Morgan</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Floor Manager</p>
+</div>
+</div>
+<nav class="flex-1 space-y-unit">
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md p-md bg-secondary-container text-on-secondary-container rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+<span class="font-label-md text-label-md">POS</span>
+</a>
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">inventory</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-md text-label-md">Recipe Builder</span>
+</a>
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Purchases</span>
+</a>
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+<a class="flex items-center gap-md p-md text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<button class="mt-auto w-full py-md bg-primary text-on-primary rounded-lg font-label-md flex items-center justify-center gap-sm shadow-sm hover:opacity-90 transition-all">
+<span class="material-symbols-outlined">add</span>
+            New Sale
+        </button>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-64 flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar Shell -->
+<header class="flex justify-between items-center h-16 px-lg sticky top-0 z-40 bg-surface-bright border-b border-outline-variant shadow-sm">
+<div class="flex items-center flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-xl pr-md py-sm text-body-md focus:ring-2 focus:ring-primary" placeholder="Search menu items..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<button class="p-sm text-on-surface-variant hover:bg-surface-container rounded-full relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-sm text-on-surface-variant hover:bg-surface-container rounded-full">
+<span class="material-symbols-outlined">calendar_today</span>
+</button>
+<div class="h-8 w-px bg-outline-variant mx-sm"></div>
+<div class="text-right">
+<p class="font-bold text-primary font-headline-md leading-none">POS Terminal 01</p>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold">Shift: Morning</p>
+</div>
+</div>
+</header>
+<div class="flex-1 flex overflow-hidden">
+<!-- Left/Middle: Product Grid & Categories -->
+<section class="flex-1 flex flex-col p-lg overflow-y-auto bg-surface-container-low">
+<!-- Category Scroll -->
+<div class="flex gap-md mb-lg overflow-x-auto hide-scrollbar pb-sm">
+<button class="px-xl py-md bg-primary text-on-primary rounded-full font-label-md whitespace-nowrap shadow-md">All Items</button>
+<button class="px-xl py-md bg-surface text-on-surface-variant border border-outline-variant rounded-full font-label-md whitespace-nowrap hover:bg-surface-container transition-colors">Main Course</button>
+<button class="px-xl py-md bg-surface text-on-surface-variant border border-outline-variant rounded-full font-label-md whitespace-nowrap hover:bg-surface-container transition-colors">Appetizers</button>
+<button class="px-xl py-md bg-surface text-on-surface-variant border border-outline-variant rounded-full font-label-md whitespace-nowrap hover:bg-surface-container transition-colors">Drinks</button>
+<button class="px-xl py-md bg-surface text-on-surface-variant border border-outline-variant rounded-full font-label-md whitespace-nowrap hover:bg-surface-container transition-colors">Desserts</button>
+<button class="px-xl py-md bg-surface text-on-surface-variant border border-outline-variant rounded-full font-label-md whitespace-nowrap hover:bg-surface-container transition-colors">Snacks</button>
+</div>
+<!-- Product Grid (Bento-style layout) -->
+<div class="product-grid">
+<!-- Product Card -->
+<div class="bg-surface border border-outline-variant rounded-xl p-sm flex flex-col gap-sm cursor-pointer hover:shadow-lg hover:border-primary transition-all group">
+<div class="aspect-square w-full rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="A beautifully plated healthy salmon bowl with fresh avocado, quinoa, and vibrant greens. The photography is professional with soft natural lighting, capturing the textures and colors in a high-key, clean aesthetic that fits a modern minimalist dining experience. Predominant colors are soft greens, oranges, and warm whites." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbRdhe8NSUuw1OYNi1mC0SFbOd9uZJavG4jnDeMqwEWJXi5pFzhiYBDvWS2vLk2xKbDy2oiT5T2PdfdtKvsqWvrCmWO_qZn9kXOZBEMy1AJy6WajBZzfkL8OPpOufkbaC4Bx6ZqVLtr886Cv1FNDuXgQz0r5ykDFkhPevfyGiUljv041O_zwdP7OKiuOV5mh8tFfazSZ9N0hN1hyVYjtLKfMmVcfrdujlgUCqeXlY8Z-qH0SBHUtQbr2_BSTVD6TP7Jms22ViiBIQ"/>
+</div>
+<div class="px-xs">
+<h3 class="font-label-md text-on-surface line-clamp-1">Salmon Poke Bowl</h3>
+<p class="text-primary font-bold text-title-lg">Rp 65.000</p>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant rounded-xl p-sm flex flex-col gap-sm cursor-pointer hover:shadow-lg hover:border-primary transition-all group">
+<div class="aspect-square w-full rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="A gourmet cheeseburger with melting cheddar cheese, crisp lettuce, and a toasted brioche bun, presented on a minimalist ceramic plate. The lighting is warm and directional, creating subtle shadows and highlighting the juicy texture of the meat. The overall style is clean, modern, and appetizing, emphasizing freshness and quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAytWkrIjmvlSHdaaaGhddkByQyhwHNwfEQTZrEWaHdzY-QU9sDgJUxBPfy5gVYltCjZcunqYVfJMsvrUPN52NkCObBONFUqOKIA7jBW-0SmJ3y9qww2j6ZX8M8xtmPmWCnSyNIScaYNQ17LRe8arfpBRM6eEV5Myj45ECNPi3WwTS7rZfyYHz8PTlM003VfighVouxXJKLeCW8DrW3ukL5DJusg7jzM50HOvh9WMG3loI0fXKykAC6RJON8Ep-ID3ulc7_P4dTRbE"/>
+</div>
+<div class="px-xs">
+<h3 class="font-label-md text-on-surface line-clamp-1">Signature Burger</h3>
+<p class="text-primary font-bold text-title-lg">Rp 58.000</p>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant rounded-xl p-sm flex flex-col gap-sm cursor-pointer hover:shadow-lg hover:border-primary transition-all group">
+<div class="aspect-square w-full rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="A refreshing iced latte with beautiful milk swirls, served in a sleek, minimalist tall glass. The setting is a bright, airy cafe with light-colored wooden surfaces. The visual style is crisp and professional, using a bright, high-key palette of whites, creams, and warm coffee browns." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzaavjQb_sis7ycC0z5O5KgNZhLHHFlX21kh7DU4FqO8-_D6QlQRtQtzV2JlqFd3S0EG6l9W-yRqrLh7uIWesjTUy6jF6z2rVluiSGA5-gign8ML6uaKoJHFKGlDixK387sdSTycA2LRSQ66yKDTSIh-bp__nLjnAuQ9dfgDjH-ApUuM6rh-khxtQpCntZDxEBX8SCwDxHdEZQpdztvws8Ii5-lahwI4X3pAnB78QiXFMRpMcPXxj-6OZ0z2bCIFqHbaF_pdG5G1o"/>
+</div>
+<div class="px-xs">
+<h3 class="font-label-md text-on-surface line-clamp-1">Iced Caramel Latte</h3>
+<p class="text-primary font-bold text-title-lg">Rp 32.000</p>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant rounded-xl p-sm flex flex-col gap-sm cursor-pointer hover:shadow-lg hover:border-primary transition-all group">
+<div class="aspect-square w-full rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="A thin-crust artisan pizza topped with fresh basil and mozzarella pearls, shot from a top-down angle on a rustic yet clean table. The lighting is soft and even, highlighting the vibrant reds of the tomato sauce and the deep green of the basil. The aesthetic is contemporary and high-end corporate food photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYxzsMPy8ondyZmf8ZDxm9D5X7iuZAqkQoNlN4IDltfPOrC5XPMlkwX6buWZJNouoVrhoyYp3EHGE0jldE5mddn1ZnI6qmmRvq68h2cWG4Wrw-W7RJN2boIqnhvqYxPhGUl27U3lXkNWaz23BMigDitBpdpB5naYkV2Ek58DhWMubN4fP8xPcJGYJlkimFvNQCT64jZunMrq6m4VUjeWafUFO5BpWnMyTQD19UOJQML2a2Ff21wOrm7RqgkxIfKlc0nzLODfKqFOo"/>
+</div>
+<div class="px-xs">
+<h3 class="font-label-md text-on-surface line-clamp-1">Margherita Pizza</h3>
+<p class="text-primary font-bold text-title-lg">Rp 75.000</p>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant rounded-xl p-sm flex flex-col gap-sm cursor-pointer hover:shadow-lg hover:border-primary transition-all group">
+<div class="aspect-square w-full rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="A trio of modern street-style tacos served on a clean slate board. Each taco features vibrant fillings like shredded purple cabbage and fresh cilantro. The lighting is dramatic but clean, emphasizing the vivid colors and textures of the fresh ingredients. The background is a neutral, professional grey." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBphcdgsNOyfz0m8Y07Akpu3m1VSB0KUYAquP1Hi8kQg16oYiTGDsKGF0F_mpYujmFBUilMH-5iVw6T9sIw_B_uk-BGbHKjm5oCJFEh8ryetWmyqqMg8LiZF76ZhCZJVYNDOgiNarqdVnRySIkPnl5x1_DF4ARPH4t6SWTI0DwTa8Y8tLruRvG4-jOMQ49GrSGjl1su6F5C2KIYne4GF2JSWqfKBwIGR37fgVp4UoqOdeEGH69GAemdRkOxPyeNGhlZ5kaRPebZxrk"/>
+</div>
+<div class="px-xs">
+<h3 class="font-label-md text-on-surface line-clamp-1">Baja Fish Tacos</h3>
+<p class="text-primary font-bold text-title-lg">Rp 48.000</p>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant rounded-xl p-sm flex flex-col gap-sm cursor-pointer hover:shadow-lg hover:border-primary transition-all group">
+<div class="aspect-square w-full rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="A decadent dark chocolate lava cake with a dusting of powdered sugar and a single red raspberry on a pristine white plate. The lighting is sophisticated and atmospheric, creating a sense of luxury and precision. The overall tone is refined, systematic, and highlights the artistic presentation of the dessert." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbOT-H9boXDXWOykk97MPg0IIdyYqrzMRvg2ZVt8jfVTJ3a1xIAZYWfQxT6aF2Qx19qxzX1CJFGE68fqEQtJyWZwVIwESajOtkxWJEzhtr-irUyYFY9I8D1uS7EgSe0etdW_cQAzhWYALXwIuKVc14exiZC7s_9rEM7WMmy6GOO2EhDi_ln-EPISzSXP_PcPL6TWAjHyYtAL-g12nx07w5Pk2EpO3sBIf-4xeLFlpvaIidOKFjkupXRzydOEru7isKOWmYoqzHNrU"/>
+</div>
+<div class="px-xs">
+<h3 class="font-label-md text-on-surface line-clamp-1">Lava Cake</h3>
+<p class="text-primary font-bold text-title-lg">Rp 42.000</p>
+</div>
+</div>
+<!-- Repeat cards for visual weight -->
+<div class="bg-surface border border-outline-variant rounded-xl p-sm flex flex-col gap-sm cursor-pointer hover:shadow-lg hover:border-primary transition-all group">
+<div class="aspect-square w-full rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="A fresh garden salad with grilled chicken strips, cherry tomatoes, and balsamic glaze in a wide bowl. Professional food styling on a clean marble surface with bright, diffused lighting. The palette is dominated by vibrant greens and earthy browns, radiating health and freshness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGe0zgWJDhFfI3e4hEjcQ3-L_e4LLXE1B6oFEvWeOypcKHjDlbtr4VNtWBsWnBkhBVI1Qi46-SZurdPEzKUk2VizET8YSK2DLBSmWEqA3dKdeXsq4lMjVxAExey8TXQbgMzOS7Ja5kgmB5eRCM6fHzv-Mj3O9R-5qDKVFbGh531-pMWdbOnELe1EMBLFUAgLNFarRaVPi95RC7E8XpvKLPYurzWb0R57P8ZEvLJIr8FirenCwcwfL6w43MqxgplGYmyHlvws2_pTU"/>
+</div>
+<div class="px-xs">
+<h3 class="font-label-md text-on-surface line-clamp-1">Chicken Salad</h3>
+<p class="text-primary font-bold text-title-lg">Rp 52.000</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Right: Shopping Cart/Transaction Summary -->
+<aside class="w-96 flex flex-col bg-surface border-l border-outline-variant shadow-xl z-10">
+<div class="p-lg border-b border-outline-variant flex justify-between items-center bg-surface-bright">
+<h2 class="font-headline-md text-on-surface">Order #2409</h2>
+<button class="text-primary font-label-md px-md py-xs hover:bg-primary-fixed rounded-lg transition-colors">Clear All</button>
+</div>
+<!-- Cart Items List -->
+<div class="flex-1 overflow-y-auto p-lg space-y-lg">
+<!-- Item 1 -->
+<div class="flex gap-md group">
+<div class="w-16 h-16 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
+<img alt="Item" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgtuEQIFYzrJ0t03FMc3fLG2irNxhr0zLHRSLgJA9ypoktehv-jrMknLK0mvNzdf_iJoMi-z6pmCpUXkxwS1ep6XNrnQg4rqLpZdxbCvNrZ4QfPgx9_4SVzSk45Wb5WQ76teEDAHQA4AkU0zXIw7JBWhkh5Dqc8MeJft8Ov-It_Tci19WcMXmTZYCwIea_E6d0nR6nSXrEDgfDel9BCgtXskHJ9RSfixW4LCHv-6Nr4vV375b05XCyWQpTOieaKZ6bPiJzx666BIQ"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between">
+<h4 class="font-label-md text-on-surface">Signature Burger</h4>
+<p class="font-bold text-primary">Rp 58.000</p>
+</div>
+<p class="text-label-md text-on-surface-variant mb-sm">Regular, No Onion</p>
+<div class="flex items-center gap-md">
+<div class="flex items-center border border-outline-variant rounded-lg overflow-hidden">
+<button class="p-xs hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[18px]">remove</span></button>
+<span class="px-md font-mono-md text-body-md border-x border-outline-variant">1</span>
+<button class="p-xs hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[18px]">add</span></button>
+</div>
+<button class="text-error opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex gap-md group">
+<div class="w-16 h-16 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
+<img alt="Item" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAygSja7NIbNeZ_Qs22AAhenghRP_vYMkP-foGxXsxDqjz24LGhGXcToTmrwTshsKBoANjyul16z45DyoCP1XQCK7RLgV-NonX6rbimnBbKMray1r-Qsl1bIsJndp0vfcV3emwf867Vpa-tAwmitgD5obhRY7w2tLAgP9aQtVfQlxqL7bALCDy6kw5_FwifUVm3LRh6l_-gmKtjl6fj_9n39XE0XhucqrtQX7n6xdfhOnNU7ZW2YTjbyE56KUPkFOFCJzO1v9oz4jY"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between">
+<h4 class="font-label-md text-on-surface">Iced Caramel Latte</h4>
+<p class="font-bold text-primary">Rp 64.000</p>
+</div>
+<p class="text-label-md text-on-surface-variant mb-sm">Extra Shot, Oat Milk</p>
+<div class="flex items-center gap-md">
+<div class="flex items-center border border-outline-variant rounded-lg overflow-hidden">
+<button class="p-xs hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[18px]">remove</span></button>
+<span class="px-md font-mono-md text-body-md border-x border-outline-variant">2</span>
+<button class="p-xs hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[18px]">add</span></button>
+</div>
+<button class="text-error opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Transaction Summary -->
+<div class="p-lg bg-surface-container-lowest border-t border-outline-variant space-y-md">
+<div class="space-y-sm">
+<div class="flex justify-between text-body-md text-on-surface-variant">
+<span>Subtotal</span>
+<span>Rp 122.000</span>
+</div>
+<div class="flex justify-between text-body-md text-on-surface-variant">
+<span>Tax (11%)</span>
+<span>Rp 13.420</span>
+</div>
+<div class="flex justify-between font-bold text-title-lg text-on-surface pt-sm">
+<span>Total</span>
+<span class="text-primary">Rp 135.420</span>
+</div>
+</div>
+<!-- Payment Methods -->
+<div class="pt-md">
+<p class="text-label-md text-on-surface-variant uppercase font-bold mb-sm">Payment Method</p>
+<div class="grid grid-cols-3 gap-sm">
+<button class="flex flex-col items-center justify-center py-md rounded-lg border-2 border-primary bg-primary-fixed text-primary font-bold transition-all">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-[10px]">Tunai</span>
+</button>
+<button class="flex flex-col items-center justify-center py-md rounded-lg border-2 border-outline-variant hover:border-primary hover:text-primary transition-all">
+<span class="material-symbols-outlined">qr_code_2</span>
+<span class="text-[10px]">QRIS</span>
+</button>
+<button class="flex flex-col items-center justify-center py-md rounded-lg border-2 border-outline-variant hover:border-primary hover:text-primary transition-all">
+<span class="material-symbols-outlined">credit_card</span>
+<span class="text-[10px]">Card</span>
+</button>
+</div>
+</div>
+<!-- Large Checkout Button -->
+<button class="w-full py-xl bg-primary text-on-primary rounded-xl font-bold text-title-lg shadow-lg hover:shadow-xl active:scale-[0.98] transition-all flex items-center justify-center gap-md" id="bayarBtn">
+                        Bayar Sekarang
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</aside>
+</div>
+</main>
+<script>
+        // Simple interactive micro-interaction for the 'Bayar' button
+        const bayarBtn = document.getElementById('bayarBtn');
+        bayarBtn.addEventListener('click', () => {
+            const originalText = bayarBtn.innerHTML;
+            bayarBtn.disabled = true;
+            bayarBtn.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing...
+            `;
+            
+            setTimeout(() => {
+                bayarBtn.innerHTML = `
+                    <span class="material-symbols-outlined">check_circle</span>
+                    Success!
+                `;
+                bayarBtn.classList.remove('bg-primary');
+                bayarBtn.classList.add('bg-green-600');
+                
+                setTimeout(() => {
+                    bayarBtn.innerHTML = originalText;
+                    bayarBtn.classList.remove('bg-green-600');
+                    bayarBtn.classList.add('bg-primary');
+                    bayarBtn.disabled = false;
+                    alert('Order #2409 completed successfully.');
+                }, 1500);
+            }, 1000);
+        });
+
+        // Add visual click effect to product cards
+        document.querySelectorAll('.product-grid > div').forEach(card => {
+            card.addEventListener('click', () => {
+                card.classList.add('scale-95');
+                setTimeout(() => card.classList.remove('scale-95'), 100);
+            });
+        });
+    </script>
+</body></html>

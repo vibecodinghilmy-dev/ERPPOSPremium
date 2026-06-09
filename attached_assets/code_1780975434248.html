@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ERP Lite F&amp;B - Recipe Builder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "on-primary-container": "#eeefff",
+                    "inverse-on-surface": "#f0f0fb",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "on-background": "#191b23",
+                    "surface-container-highest": "#e1e2ed",
+                    "on-primary-fixed": "#00174b",
+                    "outline-variant": "#c3c6d7",
+                    "surface-container-low": "#f3f3fe",
+                    "primary-container": "#2563eb",
+                    "tertiary": "#943700",
+                    "on-secondary-container": "#54647a",
+                    "on-primary": "#ffffff",
+                    "primary": "#004ac6",
+                    "inverse-surface": "#2e3039",
+                    "surface-variant": "#e1e2ed",
+                    "surface-dim": "#d9d9e5",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "surface-bright": "#faf8ff",
+                    "secondary-container": "#d0e1fb",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "outline": "#737686",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "tertiary-fixed": "#ffdbcd",
+                    "secondary": "#505f76",
+                    "surface": "#faf8ff",
+                    "primary-fixed": "#dbe1ff",
+                    "tertiary-container": "#bc4800",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#360f00",
+                    "on-surface": "#191b23",
+                    "surface-tint": "#0053db",
+                    "on-secondary-fixed": "#0b1c30",
+                    "inverse-primary": "#b4c5ff",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-tertiary-container": "#ffede6",
+                    "on-surface-variant": "#434655",
+                    "on-tertiary": "#ffffff",
+                    "surface-container": "#ededf9",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "surface-container-high": "#e7e7f3",
+                    "background": "#faf8ff",
+                    "secondary-fixed": "#d3e4fe"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1440px",
+                    "2xl": "48px",
+                    "lg": "24px",
+                    "gutter": "20px",
+                    "sm": "8px",
+                    "xs": "4px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "mono-md": ["JetBrains Mono"],
+                    "headline-lg-mobile": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "mono-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface border-r border-outline-variant flex flex-col p-md z-50">
+<div class="mb-xl px-sm">
+<h1 class="text-headline-md font-black text-primary">ERP Lite F&amp;B</h1>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="text-label-md font-label-md">POS</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-label-md font-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined">inventory</span>
+<span class="text-label-md font-label-md">Products</span>
+</a>
+<!-- Active Navigation -->
+<a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container rounded-lg group" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="text-label-md font-label-md">Recipe Builder</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="text-label-md font-label-md">Purchases</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="text-label-md font-label-md">Reports</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto p-sm bg-surface-container-low rounded-xl flex items-center gap-md">
+<img alt="User profile picture" class="w-10 h-10 rounded-full object-cover" data-alt="Close-up professional portrait of a floor manager wearing a clean, modern hospitality uniform in a brightly lit, high-end restaurant kitchen. The lighting is crisp and cinematic, emphasizing a professional and focused atmosphere. The background is softly blurred, showing glimpses of stainless steel kitchen equipment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwvGoZGJ2HBjzQ26_RMAxTslpOoTSsbhEbKOd1mJ-PIydBUGZUFqKYCB_wlWojiWBLqsn0pdjj4cBagxmp2XTGd36KpgkkJJu5r1Gc8eEj5gCEGMQijBwxITw7Q3C58JoOzj1fH0GA2CvoT-AsSefvQenp6l5I0PQxA-w_6ta9CVsxIUO6_K9CYsGcNrxAhUQSzgWhCwb55TjjUk2_F6hPvC7yDIBcawJ-lLA3W_p6tZCjvG6EC1OdNt6lwVUrXbQc_2rR6nI1S9c"/>
+<div class="overflow-hidden">
+<p class="text-label-md font-bold truncate text-on-surface">Alex Morgan</p>
+<p class="text-[10px] text-on-surface-variant">Floor Manager</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="pl-64 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center h-16 px-lg sticky top-0 z-40 bg-surface-bright shadow-sm">
+<div class="flex items-center gap-md flex-1">
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-lowest border-outline-variant rounded-full py-2 pl-10 pr-4 text-body-md focus:ring-primary focus:border-primary" placeholder="Search products or ingredients..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<div class="flex items-center gap-sm">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined">calendar_today</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+</div>
+<button class="bg-primary text-on-primary px-lg py-2 rounded-lg font-label-md text-label-md hover:shadow-lg transition-all active:scale-95">
+                    New Sale
+                </button>
+</div>
+</header>
+<!-- Page Canvas -->
+<div class="p-lg flex flex-col gap-lg">
+<!-- Hero Header -->
+<div class="flex justify-between items-end">
+<div>
+<h2 class="text-display-lg font-display-lg text-on-surface">Recipe Builder</h2>
+<p class="text-body-lg text-on-surface-variant">Manage ingredients, calculate HPP, and set your profit margins.</p>
+</div>
+<div class="flex gap-md">
+<button class="flex items-center gap-sm px-md py-2 border border-outline-variant rounded-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">upload_file</span>
+<span class="text-label-md">Import CSV</span>
+</button>
+<button class="flex items-center gap-sm px-md py-2 bg-primary text-on-primary rounded-lg shadow-md hover:shadow-xl transition-all">
+<span class="material-symbols-outlined">add</span>
+<span class="text-label-md">Create Product</span>
+</button>
+</div>
+</div>
+<!-- Dashboard Layout: Bento Grid -->
+<div class="grid grid-cols-12 gap-lg h-[calc(100vh-280px)]">
+<!-- Left Column: Product List -->
+<div class="col-span-4 flex flex-col gap-md h-full">
+<div class="bg-white rounded-xl border border-outline-variant shadow-sm flex flex-col h-full overflow-hidden">
+<div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<span class="text-label-md font-bold uppercase tracking-wider text-on-surface-variant">Active Products</span>
+<span class="bg-primary-container text-on-primary-container px-2 py-0.5 rounded text-[10px] font-bold">24 TOTAL</span>
+</div>
+<div class="flex-1 overflow-y-auto p-sm space-y-sm" id="product-list">
+<!-- Product Item 1 (Active) -->
+<div class="p-md bg-secondary-container border border-primary/20 rounded-lg cursor-pointer transition-all">
+<div class="flex items-center gap-md">
+<img alt="Beng-Beng Ice" class="w-12 h-12 rounded-lg object-cover" data-alt="A macro photography shot of a gourmet chocolate ice cream dessert inspired by Beng-Beng wafers, served in a clean white porcelain bowl. The dessert is garnished with caramel drizzle, crispy wafer bits, and roasted peanuts. The lighting is warm and inviting, typical of a high-end bistro, with soft focus on the texture of the ice cream." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiEd6oncnYVz2cOUop-Wp6TgUnfqr6eD4tqCRTf87AJN0D0p1aKurCaAJBCbD2b518VUnV3T0oasX5KvY0qgThzAC70a58ivn1aTehXexw9ZAx0Ln0ROzxnq0T8g3dBw_aHdc7Edr04LdMf8c6m1hgb38v3gyvzDUPWPJladSuJr_Q4WZq0h6C2HNRO0oiFZ9KOvHvNQz_rsJitPN6OAjfYgZ99KLq-djthTtPDzUtO1OR_hwTSIirg6HTh8SI8u0Ap-um8mPK6GM"/>
+<div class="flex-1 min-w-0">
+<h4 class="font-bold text-on-surface truncate">Beng-Beng Ice</h4>
+<p class="text-[10px] text-on-surface-variant">Last updated: 2 hrs ago</p>
+</div>
+<div class="text-right">
+<p class="text-label-md font-black text-primary">Rp 15.000</p>
+<p class="text-[10px] text-on-surface-variant">HPP: Rp 4.200</p>
+</div>
+</div>
+</div>
+<!-- Product Item 2 -->
+<div class="p-md hover:bg-surface-container transition-all rounded-lg cursor-pointer border border-transparent">
+<div class="flex items-center gap-md">
+<img alt="Kopi Gula Aren" class="w-12 h-12 rounded-lg object-cover" data-alt="An artistic shot of a cold brew coffee with dark palm sugar syrup layering beautifully at the bottom, topped with creamy milk. The glass sits on a minimalist slate coaster against a bright, modern cafe background. The lighting is natural and bright, highlighting the distinct layers of coffee and milk." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmWU06Mhz2ysVBd-294VwrWPYMc7qTjCj7DVfzWT19oqC4WQCWCcYZV6mM2vHuiyzQJEVW2EP3JX993F-yTWQJGFHqAsBAk3c04CzDKGDcc-b8ZVOIVWScHMpF0ESYQUS6bu7Z51Az6-lO0ApC4CUmlIjkArCdeyZOJ9lfQEX_tFnz6rXtm29L1XX3jWC4eM5JA6y7Cvfl47t21y-aFc-kF2lU1E8EA6tbFr8P3c4TY6WA-shI-La_pZDI6sQV0W58SkwLgigPDr4"/>
+<div class="flex-1 min-w-0">
+<h4 class="font-bold text-on-surface truncate">Kopi Gula Aren</h4>
+<p class="text-[10px] text-on-surface-variant">Last updated: 1 day ago</p>
+</div>
+<div class="text-right">
+<p class="text-label-md font-black text-on-surface">Rp 18.000</p>
+<p class="text-[10px] text-on-surface-variant">HPP: Rp 6.150</p>
+</div>
+</div>
+</div>
+<!-- Product Item 3 -->
+<div class="p-md hover:bg-surface-container transition-all rounded-lg cursor-pointer border border-transparent">
+<div class="flex items-center gap-md">
+<img alt="Premium Churros" class="w-12 h-12 rounded-lg object-cover" data-alt="Golden brown churros dusted with fine cinnamon sugar, served on a sleek black stone plate with a small ceramic dip bowl of rich dark chocolate ganache. Professional studio lighting highlights the crystalline sugar and the steam rising from the hot pastry. The mood is sophisticated and decadent." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAG29fsjYKaWBJtQDCtIch0P8XzfkEQpkA6jIlkKHCW0p59f-9ZCijqb4qi4M3Ig8fjyjBuosjVP-9J5oY5EvdwSi3CBM1e-N8eIazDnCk-a69iBisMeB48-SAQRGL9mC22FoKwVpY5TaEGgHzMS8dm652-vg4KYZ2ofN4f6r45pQEODMrY1PmKIFTPa0PkGMvsq1j8YiTPLuJkcS9D-XtghwDR6OkIE2IlW7OKsfhpoj0hNW-OqoS5_ZZKEQKtBcxKPaPtqjlZLI8"/>
+<div class="flex-1 min-w-0">
+<h4 class="font-bold text-on-surface truncate">Premium Churros</h4>
+<p class="text-[10px] text-on-surface-variant">Last updated: 3 days ago</p>
+</div>
+<div class="text-right">
+<p class="text-label-md font-black text-on-surface">Rp 25.000</p>
+<p class="text-[10px] text-on-surface-variant">HPP: Rp 8.900</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Recipe Editor -->
+<div class="col-span-8 flex flex-col gap-lg h-full overflow-y-auto pr-2">
+<!-- Recipe Master-Detail -->
+<div class="bg-white rounded-xl border border-outline-variant shadow-sm overflow-hidden flex flex-col">
+<div class="p-lg bg-surface-container-low border-b border-outline-variant flex justify-between items-center">
+<div class="flex items-center gap-md">
+<span class="bg-primary w-2 h-8 rounded-full"></span>
+<div>
+<h3 class="text-title-lg font-title-lg text-on-surface">Beng-Beng Ice</h3>
+<span class="text-label-md text-on-surface-variant font-normal">Editing Master Recipe</span>
+</div>
+</div>
+<div class="flex items-center gap-xl text-right">
+<div>
+<p class="text-[10px] font-bold uppercase text-on-surface-variant">Total HPP</p>
+<p class="text-headline-md font-black text-primary" id="total-hpp">Rp 4.200</p>
+</div>
+<div>
+<p class="text-[10px] font-bold uppercase text-on-surface-variant">Margin</p>
+<p class="text-headline-md font-black text-tertiary" id="margin-pct">72.0%</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-12 flex-1">
+<!-- Ingredient List (Master) -->
+<div class="col-span-7 p-lg border-r border-outline-variant">
+<div class="flex justify-between items-center mb-md">
+<h4 class="text-label-md font-bold uppercase text-on-surface-variant">Ingredients</h4>
+<button class="text-primary flex items-center gap-sm text-label-md hover:underline" onclick="addIngredientRow()">
+<span class="material-symbols-outlined text-[18px]">add_circle</span> Add Item
+                                    </button>
+</div>
+<div class="space-y-sm" id="ingredient-rows">
+<!-- Row 1 -->
+<div class="grid grid-cols-12 gap-sm items-center group">
+<div class="col-span-6">
+<input class="w-full bg-surface-container-lowest border-outline-variant rounded-lg px-3 py-2 text-body-md focus:ring-primary focus:border-primary" type="text" value="Beng-Beng Wafer"/>
+</div>
+<div class="col-span-3">
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-outline-variant rounded-lg px-3 py-2 text-body-md pr-10" onchange="calculateHPP()" step="1" type="number" value="1"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-on-surface-variant">PCS</span>
+</div>
+</div>
+<div class="col-span-2">
+<p class="text-label-md font-mono-md text-right">2.500</p>
+</div>
+<div class="col-span-1 flex justify-end">
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-12 gap-sm items-center group">
+<div class="col-span-6">
+<input class="w-full bg-surface-container-lowest border-outline-variant rounded-lg px-3 py-2 text-body-md" type="text" value="Premium Milk Base"/>
+</div>
+<div class="col-span-3">
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-outline-variant rounded-lg px-3 py-2 text-body-md pr-10" onchange="calculateHPP()" step="10" type="number" value="150"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-on-surface-variant">ML</span>
+</div>
+</div>
+<div class="col-span-2">
+<p class="text-label-md font-mono-md text-right">1.200</p>
+</div>
+<div class="col-span-1 flex justify-end">
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-12 gap-sm items-center group">
+<div class="col-span-6">
+<input class="w-full bg-surface-container-lowest border-outline-variant rounded-lg px-3 py-2 text-body-md" type="text" value="Chocolate Topping"/>
+</div>
+<div class="col-span-3">
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-outline-variant rounded-lg px-3 py-2 text-body-md pr-10" onchange="calculateHPP()" step="5" type="number" value="10"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-on-surface-variant">GR</span>
+</div>
+</div>
+<div class="col-span-2">
+<p class="text-label-md font-mono-md text-right">500</p>
+</div>
+<div class="col-span-1 flex justify-end">
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Calculations & Pricing (Detail) -->
+<div class="col-span-5 p-lg bg-surface-container-lowest">
+<h4 class="text-label-md font-bold uppercase text-on-surface-variant mb-md">Pricing Strategy</h4>
+<div class="space-y-lg">
+<div>
+<label class="block text-label-md text-on-surface-variant mb-xs">Harga Jual (Selling Price)</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 font-bold text-on-surface-variant">Rp</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface border-outline-variant rounded-xl text-title-lg font-bold text-on-surface" id="selling-price" onchange="calculateHPP()" type="number" value="15000"/>
+</div>
+</div>
+<div class="p-md bg-surface-container-high rounded-xl space-y-md">
+<div class="flex justify-between items-center">
+<span class="text-body-md text-on-surface-variant">Gross Profit</span>
+<span class="font-bold text-on-surface" id="gross-profit">Rp 10.800</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-md text-on-surface-variant">Food Cost %</span>
+<span class="font-bold text-error" id="food-cost-pct">28.0%</span>
+</div>
+<div class="h-2 bg-outline-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary" id="cost-bar" style="width: 28%;"></div>
+</div>
+</div>
+<div class="p-md border border-primary/30 bg-primary-fixed-dim rounded-xl">
+<p class="text-[10px] font-black text-on-primary-fixed-variant uppercase mb-xs tracking-widest">Pricing Suggestion</p>
+<p class="text-body-md text-on-primary-fixed-variant">Based on your target margin of 70%, we recommend setting the price to <span class="font-bold">Rp 14.000</span>.</p>
+</div>
+<button class="w-full bg-primary text-on-primary py-3 rounded-xl font-bold shadow-lg hover:bg-primary-container transition-all">
+                                        Save Recipe Changes
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Market Insights Section -->
+<div class="grid grid-cols-2 gap-lg">
+<div class="bg-white p-lg rounded-xl border border-outline-variant shadow-sm relative overflow-hidden">
+<div class="relative z-10">
+<h4 class="text-label-md font-bold uppercase text-on-surface-variant mb-md">Ingredient Price Trend</h4>
+<div class="flex items-end gap-xs h-24 mb-md">
+<div class="bg-primary/20 w-full rounded-t" style="height: 40%"></div>
+<div class="bg-primary/20 w-full rounded-t" style="height: 55%"></div>
+<div class="bg-primary/20 w-full rounded-t" style="height: 45%"></div>
+<div class="bg-primary/60 w-full rounded-t" style="height: 70%"></div>
+<div class="bg-primary/40 w-full rounded-t" style="height: 60%"></div>
+<div class="bg-primary w-full rounded-t" style="height: 85%"></div>
+</div>
+<p class="text-body-md text-on-surface-variant">Milk prices have increased by <span class="text-error font-bold">12%</span> this week. Consider adjusting your stock volume.</p>
+</div>
+</div>
+<div class="bg-inverse-surface p-lg rounded-xl shadow-sm">
+<h4 class="text-label-md font-bold uppercase text-surface-variant mb-md">Quick Summary</h4>
+<div class="grid grid-cols-2 gap-md">
+<div>
+<p class="text-display-lg font-display-lg text-primary-fixed">15</p>
+<p class="text-label-md text-surface-variant">Active Ingredients</p>
+</div>
+<div>
+<p class="text-display-lg font-display-lg text-tertiary-fixed-dim">Rp 4.2k</p>
+<p class="text-label-md text-surface-variant">Average HPP</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        function calculateHPP() {
+            // Simplified calculation logic for UI feedback demo
+            const sellingPriceInput = document.getElementById('selling-price');
+            const hppDisplay = document.getElementById('total-hpp');
+            const marginDisplay = document.getElementById('margin-pct');
+            const grossProfitDisplay = document.getElementById('gross-profit');
+            const foodCostDisplay = document.getElementById('food-cost-pct');
+            const costBar = document.getElementById('cost-bar');
+
+            // Hardcoded base for demo, would be dynamic in real app
+            let hpp = 4200; 
+            const inputs = document.querySelectorAll('input[type="number"]');
+            inputs.forEach(input => {
+                if(input.id !== 'selling-price') {
+                    // Logic to simulate change
+                }
+            });
+
+            const sellingPrice = parseFloat(sellingPriceInput.value) || 0;
+            const profit = sellingPrice - hpp;
+            const margin = sellingPrice > 0 ? (profit / sellingPrice) * 100 : 0;
+            const foodCost = sellingPrice > 0 ? (hpp / sellingPrice) * 100 : 0;
+
+            // Update UI
+            hppDisplay.innerText = `Rp ${hpp.toLocaleString('id-ID')}`;
+            marginDisplay.innerText = `${margin.toFixed(1)}%`;
+            grossProfitDisplay.innerText = `Rp ${profit.toLocaleString('id-ID')}`;
+            foodCostDisplay.innerText = `${foodCost.toFixed(1)}%`;
+            costBar.style.width = `${foodCost}%`;
+            
+            // Visual feedback
+            if(foodCost > 35) {
+                foodCostDisplay.classList.remove('text-on-surface');
+                foodCostDisplay.classList.add('text-error');
+            } else {
+                foodCostDisplay.classList.remove('text-error');
+                foodCostDisplay.classList.add('text-on-surface');
+            }
+        }
+
+        function addIngredientRow() {
+            const container = document.getElementById('ingredient-rows');
+            const div = document.createElement('div');
+            div.className = "grid grid-cols-12 gap-sm items-center group animate-in slide-in-from-top-2 duration-300";
+            div.innerHTML = `
+                <div class="col-span-6">
+                    <input type="text" placeholder="New Ingredient" class="w-full bg-surface-container-lowest border-outline-variant rounded-lg px-3 py-2 text-body-md focus:ring-primary focus:border-primary">
+                </div>
+                <div class="col-span-3">
+                    <div class="relative">
+                        <input type="number" value="0" step="1" onchange="calculateHPP()" class="w-full bg-surface-container-lowest border-outline-variant rounded-lg px-3 py-2 text-body-md pr-10">
+                        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-on-surface-variant">UNIT</span>
+                    </div>
+                </div>
+                <div class="col-span-2">
+                    <p class="text-label-md font-mono-md text-right">0</p>
+                </div>
+                <div class="col-span-1 flex justify-end">
+                    <button onclick="this.parentElement.parentElement.remove(); calculateHPP();" class="text-on-surface-variant hover:text-error transition-colors">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+    </script>
+</body></html>
